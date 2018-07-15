@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="en"><!--
+ __  __                __                                     __
+/\ \/\ \              /\ \             __                    /\ \
+\ \ \_\ \   __  __    \_\ \      __   /\_\      __       ___ \ \ \/'\
+ \ \  _  \ /\ \/\ \   /'_` \   /'__`\ \/\ \   /'__`\    /'___\\ \ , <
+  \ \ \ \ \\ \ \_\ \ /\ \L\ \ /\  __/  \ \ \ /\ \L\.\_ /\ \__/ \ \ \\`\
+   \ \_\ \_\\/`____ \\ \___,_\\ \____\ _\ \ \\ \__/.\_\\ \____\ \ \_\ \_\
+    \/_/\/_/ `/___/> \\/__,_ / \/____//\ \_\ \\/__/\/_/ \/____/  \/_/\/_/
+                /\___/                \ \____/
+                \/__/                  \/___/
+
+Powered by Hydejack v8.0.0-beta.8 <https://hydejack.com/>
+-->
+
+
+
+
+
+
+
+
+
+
+
+<head>
+  
+
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+
+  
+<!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>First Person Animations for UE4 | Andrew Montoya IV</title>
+<meta name="generator" content="Jekyll v3.8.3" />
+<meta property="og:title" content="First Person Animations for UE4" />
+<meta name="author" content="Andrew Montoya" />
+<meta property="og:locale" content="en" />
+<meta name="description" content="Step-by-step tutorial for creating first person animations in Maya and integrating them into your Unreal projects" />
+<meta property="og:description" content="Step-by-step tutorial for creating first person animations in Maya and integrating them into your Unreal projects" />
+<link rel="canonical" href="https://andrewmontoyaiv.com/blog/game-design/First-Person-Animations-for-UE4/" />
+<meta property="og:url" content="https://andrewmontoyaiv.com/blog/game-design/First-Person-Animations-for-UE4/" />
+<meta property="og:site_name" content="Andrew Montoya IV" />
+<meta property="og:image" content="https://andrewmontoyaiv.com/assets/img/blog/First-Person-Animations-for-UE4/title.jpg" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2017-11-28T00:00:00-06:00" />
+<script type="application/ld+json">
+{"description":"Step-by-step tutorial for creating first person animations in Maya and integrating them into your Unreal projects","author":{"@type":"Person","name":"Andrew Montoya"},"@type":"BlogPosting","url":"https://andrewmontoyaiv.com/blog/game-design/First-Person-Animations-for-UE4/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://andrewmontoyaiv.com/assets/icons/icon.png"},"name":"Andrew Montoya"},"image":"https://andrewmontoyaiv.com/assets/img/blog/First-Person-Animations-for-UE4/title.jpg","headline":"First Person Animations for UE4","dateModified":"2017-11-28T00:00:00-06:00","datePublished":"2017-11-28T00:00:00-06:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://andrewmontoyaiv.com/blog/game-design/First-Person-Animations-for-UE4/"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  
+
+  
+
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Andrew Montoya IV">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+<meta name="application-name" content="Andrew Montoya IV">
+<meta name="msapplication-config" content="/assets/ieconfig.xml">
+
+
+<meta name="theme-color" content="rgb(25,55,71)">
+
+
+<meta name="generator" content="Hydejack v8.0.0-beta.8" />
+
+<link type="application/atom+xml" rel="alternate" href="https://andrewmontoyaiv.com/feed.xml" title="Andrew Montoya IV" />
+
+
+
+<link rel="alternate" href="https://andrewmontoyaiv.com/blog/game-design/First-Person-Animations-for-UE4/" hreflang="en">
+
+<link rel="shortcut icon" href="/assets/icons/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/icons/icon.png">
+
+<link rel="manifest" href="/assets/manifest.json">
+
+
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+
+
+  <link rel="dns-prefetch" href="https://www.google-analytics.com">
+
+
+
+
+<link rel="dns-prefetch" href="https://andrewmontoyaiv.disqus.com" id="_hrefDisqus">
+
+
+
+<link href="/assets/js/hydejack-8.0.0-beta.8.js" id="_hrefJS">
+<link href="/assets/bower_components/fontfaceobserver/fontfaceobserver.standalone.js" id="_hrefFFO">
+<link href="/assets/bower_components/katex/dist/katex.min.js" id="_hrefKatexJS">
+<link href="/assets/bower_components/katex/dist/katex.min.css" id="_hrefKatexCSS">
+<link href="/assets/img/swipe.svg" id="_hrefSwipeSVG">
+
+<script>
+  !function(e,t){"use strict";function n(e,t,n,r){e.addEventListener?e.addEventListener(t,n,r):e.attachEvent?e.attachEvent("on"+t,n):e["on"+t]=n}e.loadJS=function(e,r){var o=t.createElement("script");o.src=e,r&&n(o,"load",r,{once:!0});var a=t.scripts[0];return a.parentNode.insertBefore(o,a),o},e._loaded=!1,e.loadJSDeferred=function(r,o){function a(){e._loaded=!0,o&&n(d,"load",o,{once:!0});var r=t.scripts[0];r.parentNode.insertBefore(d,r)}var d=t.createElement("script");return d.src=r,e._loaded?a():n(e,"load",a,{once:!0}),d},e.setRel=e.setRelStylesheet=function(e){function n(){this.rel="stylesheet"}var r=t.getElementById(e);r.addEventListener?r.addEventListener("load",n,{once:!0}):r.onload=n}}(window,document);
+!function(a){"use strict";var b=function(b,c,d){function e(a){return h.body?a():void setTimeout(function(){e(a)})}function f(){i.addEventListener&&i.removeEventListener("load",f),i.media=d||"all"}var g,h=a.document,i=h.createElement("link");if(c)g=c;else{var j=(h.body||h.getElementsByTagName("head")[0]).childNodes;g=j[j.length-1]}var k=h.styleSheets;i.rel="stylesheet",i.href=b,i.media="only x",e(function(){g.parentNode.insertBefore(i,c?g:g.nextSibling)});var l=function(a){for(var b=i.href,c=k.length;c--;)if(k[c].href===b)return a();setTimeout(function(){l(a)})};return i.addEventListener&&i.addEventListener("load",f),i.onloadcssdefined=l,l(f),i};"undefined"!=typeof exports?exports.loadCSS=b:a.loadCSS=b}("undefined"!=typeof global?global:this);
+!function(a){if(a.loadCSS){var b=loadCSS.relpreload={};if(b.support=function(){try{return a.document.createElement("link").relList.supports("preload")}catch(b){return!1}},b.poly=function(){for(var b=a.document.getElementsByTagName("link"),c=0;c<b.length;c++){var d=b[c];"preload"===d.rel&&"style"===d.getAttribute("as")&&(a.loadCSS(d.href,d,d.getAttribute("media")),d.rel=null)}},!b.support()){b.poly();var c=a.setInterval(b.poly,300);a.addEventListener&&a.addEventListener("load",function(){b.poly(),a.clearInterval(c)}),a.attachEvent&&a.attachEvent("onload",function(){a.clearInterval(c)})}}}(this);
+
+  window._noPushState = false;
+  window._noDrawer = false;
+  
+    !function(w, d) {
+      loadJS(document.getElementById('_hrefFFO').href, function() {
+        if ('Promise' in w) Promise.all([
+          new FontFaceObserver('Noto Sans').load(),
+          new FontFaceObserver('Roboto Slab').load(),
+        ]).then(function f() { d.body.className += ' font-active'; }, function() {});
+      });
+    }(window, document);
+  
+</script>
+
+<!--[if gt IE 8]><!---->
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="/assets/css/hydejack-8.0.0-beta.8.css">
+  <link rel="stylesheet" href="/assets/icomoon/style.css">
+  
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:400|Noto+Sans:400,400i,700,700i">
+    <noscript>
+      <style>
+        html { font-family: Noto Sans, Helvetica, Arial, sans-serif!important; }
+        h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, .heading { font-family: Roboto Slab, Helvetica, Arial, sans-serif!important; }
+      </style>
+    </noscript>
+  
+
+
+<style id="_pageStyle">
+
+.content a:not(.btn){color:#4fb1ba;border-color:rgba(79,177,186,0.2)}.content a:not(.btn):hover{border-color:#4fb1ba}:focus{outline-color:#4fb1ba}.btn-primary{color:#fff;background-color:#4fb1ba;border-color:#4fb1ba}.btn-primary:focus,.btn-primary.focus,.form-control:focus,.form-control.focus{box-shadow:0 0 0 3px rgba(79,177,186,0.5)}.btn-primary:hover,.btn-primary.hover{color:#fff;background-color:#409ba3;border-color:#409ba3}.btn-primary:disabled,.btn-primary.disabled{color:#fff;background-color:#4fb1ba;border-color:#4fb1ba}.btn-primary:active,.btn-primary.active{color:#fff;background-color:#409ba3;border-color:#409ba3}::selection{color:#fff;background:#4fb1ba}::-moz-selection{color:#fff;background:#4fb1ba}
+
+</style>
+
+<!--<![endif]-->
+
+
+
+
+</head>
+
+<body>
+  <div class="navbar fixed-top">
+  <div class="content">
+    <div class="nav-btn-bar">
+      <span class="sr-only">Jump to:</span>
+      <a id="_menu" class="nav-btn no-hover" href="#_navigation">
+        <span class="sr-only">Navigation</span>
+        <span class="icon-menu"></span>
+      </a>
+    </div>
+  </div>
+</div>
+<hr class="sr-only" hidden />
+
+
+<hy-push-state
+  replace-ids="_main"
+  link-selector="a[href]:not([href*='/assets/']):not(.external):not(.no-push-state)"
+  duration="250"
+  script-selector="script:not([type^='math/tex'])"
+>
+  
+    <main
+  id="_main"
+  class="content fade-in layout-post"
+  role="main"
+  data-color="rgb(79,177,186)"
+  data-theme-color="rgb(25,55,71)"
+  
+    data-image="/assets/img/sidebar-bg.jpg"
+    data-overlay
+  
+  >
+  
+
+
+
+
+<article id="post-blog-game-design-First-Person-Animations-for-UE4" class="page post mb6" role="article">
+  <header>
+    <h1 class="post-title">
+      
+        First Person Animations for UE4
+      
+    </h1>
+
+    <p class="post-date heading">
+      
+      <time datetime="2017-11-28T00:00:00-06:00">28 Nov 2017</time>
+      
+      
+      
+      
+      
+
+
+
+
+
+
+
+
+
+in <a href="/blog/game-design/" class="flip-title">Game Design</a>
+
+      
+
+
+
+
+
+
+
+
+
+on <span>Ue4</span>, <span>Maya</span>
+
+    </p>
+
+    
+    
+      <div class="img lead sixteen-nine">
+        
+
+
+  
+  <hy-img root-margin="512px"  
+    
+    src="/assets/img/blog/First-Person-Animations-for-UE4/title.jpg"
+    
+    alt="First Person Animations for UE4"
+  
+    
+  >
+    <noscript><img re-ignore  
+    
+    src="/assets/img/blog/First-Person-Animations-for-UE4/title.jpg"
+    
+    alt="First Person Animations for UE4"
+  
+    
+  /></noscript>
+    <span class="loading" slot="loading" hidden>
+      <span class="icon-cog"></span>
+    </span>
+  </hy-img>
+
+      </div>
+      
+    
+
+    
+
+
+
+  
+    <p class="message" >
+      Step-by-step tutorial for creating first person animations in Maya and integrating them into your Unreal projects
+
+    </p>
+  
+
+
+  </header>
+
+  
+    <p>Animation is a powerful medium that can bring our fantasies to life. Animation in video games especially can be used to strengthen storylines or give necessary visual feedback to the player. Spending just a bit of time on custom animation can be that extra factor that gives your game added personality and uniqueness.</p>
+
+<p>In this tutorial, I will be showing you how to create 1st person animations for your Unreal games. Although techniques I bring up can apply to any game engine, we will be using tools that target the Unreal Engine.</p>
+
+<div class="yt-container">
+  <iframe class="embed-responsive-item" width="560" height="315" src="https://www.youtube.com/embed/XoA0gLFQ2Gw" frameborder="0">
+  </iframe>
+</div>
+<p><br /></p>
+
+<h1 id="getting-ready">Getting Ready</h1>
+
+<p>Before getting started, let’s make our life easier and download some plugins that will speed up our workflow. Unreal supplies us with the Animation and Rigging toolkit (ART) – which as the name implies, is great for rigging and animating our characters – for free, but it’s a bit tricky to set up. After downloading the plugin (via the Unreal marketplace), you have the option to install it to an engine (doesn’t matter which, but note the version). Navigate to the file: userSetup.py (In my case, it is under: D:\Programs\EpicGames\Engine\UE_4.15\Engine\Plugins\Marketplace\ARTv1\MayaTools). We need to point Maya to this plugin and we do this by copying this file and pasting it into the Maya plugins folder (Documents\Maya\Plugins).</p>
+
+<p>Upon opening Maya, it will ask you to locate the original userSetup.py file. Do that and the ART plugin will now appear on the menu bar. Click the “Add a Character for Animation” option under the ART tool dropdown, and select mannequin. Import it to your scene and the standard Unreal character model should now be loaded in. The rig itself is quite complex, it’s really worth it to take a look at the model’s control system before continuing.</p>
+
+<p>
+  <hy-img root-margin="512px"  src="/assets/img/blog/First-Person-Animations-for-UE4/1.png" alt="Original photo" class="lead" width="1920" height="1200" >
+    <noscript><img re-ignore  src="/assets/img/blog/First-Person-Animations-for-UE4/1.png" alt="Original photo" class="lead" width="1920" height="1200" /></noscript>
+    <span class="loading" slot="loading" hidden>
+      <span class="icon-cog"></span>
+    </span>
+  </hy-img></p>
+
+<h2 id="setting-up-our-rig">Setting Up Our Rig</h2>
+
+<p>Let’s get our model ready for animation! If you noticed, there was no option to import a first person Unreal model, so we have to make some modifications. Create a camera and resize it to your liking. In the end, we want to replace the head with our camera. Select the head and hide it by hitting Ctrl-H. Next, we need to parent the camera to the head joint. Joints are hidden on our mesh by default, so navigate to the outliner and select the head joint &amp; go to Display-&gt;Show-&gt;Show Selected.</p>
+
+<p>We have several options for snapping objects together, but I really recommend downloading the animSnap plugin. It’s a great animation tool for constraining objects together. After installing the plugin, type animSnap on the command line to bring it up.</p>
+
+<p>
+  <hy-img root-margin="512px"  src="/assets/img/blog/First-Person-Animations-for-UE4/2.png" alt="200x400" class="lead" width="1920" height="1200" >
+    <noscript><img re-ignore  src="/assets/img/blog/First-Person-Animations-for-UE4/2.png" alt="200x400" class="lead" width="1920" height="1200" /></noscript>
+    <span class="loading" slot="loading" hidden>
+      <span class="icon-cog"></span>
+    </span>
+  </hy-img></p>
+
+<p>From the tool, assign the head joint to the master and the camera to the slave. Click on the magnifier icon next to the snap button to snap the objects together (You may need to rotate the camera after to correct the setup). To finish this part up, parent the camera to the joint using the P shortcut.</p>
+
+<p>Maya’s default camera does no match with Unreal’s camera system automatically, so go into the cameras attributes and change its focal length to 21.5.  Finally, open up the camera in a new viewport and turn on its film gate. We are now ready to animate!</p>
+
+<p>
+  <hy-img root-margin="512px"  src="/assets/img/blog/First-Person-Animations-for-UE4/3.png" alt="Original photo" class="lead" width="1920" height="1200" >
+    <noscript><img re-ignore  src="/assets/img/blog/First-Person-Animations-for-UE4/3.png" alt="Original photo" class="lead" width="1920" height="1200" /></noscript>
+    <span class="loading" slot="loading" hidden>
+      <span class="icon-cog"></span>
+    </span>
+  </hy-img></p>
+
+<h1 id="animation">Animation</h1>
+
+<p>Keep in mind that there are many approaches to animation. I’m going to explain my (still developing) style and some tips I picked up along the way, but don’t feel like you need to follow this. Go with what works for you!</p>
+
+<p>
+  <hy-img root-margin="512px"  src="https://i.imgur.com/4SJAIzm.gif" alt="Sword Swing" >
+    <noscript><img re-ignore  src="https://i.imgur.com/4SJAIzm.gif" alt="Sword Swing" /></noscript>
+    <span class="loading" slot="loading" hidden>
+      <span class="icon-cog"></span>
+    </span>
+  </hy-img></p>
+
+<h2 id="idle-pose-to-pose-technique">Idle (pose to pose technique)</h2>
+
+<p>Lets start out with an idle animation. Begin by defining the start/end pose. This pose will be the midpoint for our motion so there shouldn’t be too much rotation. However, the pose should be readable, meaning you should be able to tell our character is idling, even though there is no animation present (yet). Consider specifically posing the hands as this is a great part of the model for adding that readability! When you’re finished, copy and paste this key to around frame 24 (Idle will last for around 1 second, or change as you see fit for timing). It’s also important to note that it doesn’t largely matter the frames per second you are animating to. Unreal will do the interpolating for us and upscale/downscale our animations.</p>
+
+<p>Next, lets focus on some other key poses. Find the midpoint of the animation and set keys. We will set our extreme poses between these 3 keys (don’t animate the non-dominant hand as we are going to use animSnap to constrain this hand to the weapon).</p>
+
+<p>
+  <hy-img root-margin="512px"  src="/assets/img/blog/First-Person-Animations-for-UE4/4.png" alt="Original photo" class="lead" width="1920" height="1200" >
+    <noscript><img re-ignore  src="/assets/img/blog/First-Person-Animations-for-UE4/4.png" alt="Original photo" class="lead" width="1920" height="1200" /></noscript>
+    <span class="loading" slot="loading" hidden>
+      <span class="icon-cog"></span>
+    </span>
+  </hy-img></p>
+
+<p>And again, these poses should be readable, but don’t add too much motion as it could be distracting to the player. Remember to animate to the player camera! Just because it looks good in perspective view doesn’t mean it will look right to the player. Tip: if you want both viewports to update animation, go to Preferences-&gt;Time Slider-&gt;Update View Active All.</p>
+
+<p>Another tip: Instead of changing the values of a key to make changes, sample the frames that come before it, select a pose that works best, and MMB+drag + S to the key that you want to replace.
+Note the arc that you want your weapon to follow. Life doesn’t move in a straight line, so to add more expressive &amp; natural movement, you might want to consider animating to an arc or a figure 8. Again, depending on your requirements, you might want to tone down/ramp up the overall movement of your animation. When animating, a little goes a long way.</p>
+
+<p>
+  <hy-img root-margin="512px"  src="https://i.imgur.com/PgAqIR6.gif" alt="Idle Sword" >
+    <noscript><img re-ignore  src="https://i.imgur.com/PgAqIR6.gif" alt="Idle Sword" /></noscript>
+    <span class="loading" slot="loading" hidden>
+      <span class="icon-cog"></span>
+    </span>
+  </hy-img></p>
+
+<p>Now that we have our base loop, let go ahead and refine it. Select all of our characters controls and move the keys several frames forward. Copy the keys and align the new start key to take over the original’s end key. Do this one more time to have our idle animation loop for a total of 3 times (You can also get the same results by selecting all your curves in the graph editor and hitting Curves&gt;PreInfinity/PostInfinity-&gt;Cycle  - If you don’t see the new curves, go to View-&gt;Show Results). This is useful for seeing and modifying how your idle animation transitions between loops (as well as offsetting your animations). Now go ahead and move keys around to get something that you’re happy with! If the non-dominant hand is moving off of the weapon, go ahead an animsnap it back to its correct position.</p>
+
+<p>
+  <hy-img root-margin="512px"  src="/assets/img/blog/First-Person-Animations-for-UE4/5.png" alt="Original photo" class="lead" width="1920" height="1200" >
+    <noscript><img re-ignore  src="/assets/img/blog/First-Person-Animations-for-UE4/5.png" alt="Original photo" class="lead" width="1920" height="1200" /></noscript>
+    <span class="loading" slot="loading" hidden>
+      <span class="icon-cog"></span>
+    </span>
+  </hy-img></p>
+
+<p>When refining, make sure objects feel like it has weight. Add counter movement to dampen larger movements (such as a forearm moving the opposite direction of the upper arm for a few frames), and add secondary animation.</p>
+
+<p>Note: when using the first method, if you make changes to one curve, make sure you edit the corresponding sections of the other 2 curves. This makes sure what you animate will reflect the final export.</p>
+
+<p>You’ve just finished the idle animation! This animation will be the base for all the others that we will create.</p>
+
+<p>
+  <hy-img root-margin="512px"  src="https://i.imgur.com/DGXX1nQ.gif" alt="Idle Sword Preview" >
+    <noscript><img re-ignore  src="https://i.imgur.com/DGXX1nQ.gif" alt="Idle Sword Preview" /></noscript>
+    <span class="loading" slot="loading" hidden>
+      <span class="icon-cog"></span>
+    </span>
+  </hy-img></p>
+
+<h2 id="attack-straight-ahead-technique">Attack (straight ahead technique)</h2>
+
+<p>With the attack animation, we will use most of the techniques discussed in the previous section. However, since we are not animating a seamless loop, we will not focus on timing in the blockout phase. Save our idle animation as a new file and rename it to attack_anim. Delete all keys except for the beginning pose. Now, using one frame at a time, start to pose out our character. Again, the poses should be readable and strong. It is here you should add the secondary motion/counter movement. The goal here is to add the absolute minimum amount of frames necessary in order to, “sell,” your story.</p>
+
+<p>
+  <hy-img root-margin="512px"  src="/assets/img/blog/First-Person-Animations-for-UE4/6.png" alt="Original photo" class="lead" width="1920" height="1200" >
+    <noscript><img re-ignore  src="/assets/img/blog/First-Person-Animations-for-UE4/6.png" alt="Original photo" class="lead" width="1920" height="1200" /></noscript>
+    <span class="loading" slot="loading" hidden>
+      <span class="icon-cog"></span>
+    </span>
+  </hy-img></p>
+
+<p>For the timing phase, start spreading out keyframes as you see fit. Make the animation feel like there is weight (as well as making sure our anims have time to breathe). If you want an action to happen quickly, add some anticipation. This is where you should be working out the, “feel,” of the animation.
+For refining, continue feeling out your animation and spreading out keyframes. Accentuate your poses and make your curves tell a story. Refine/reanimate until you are happy with the result.
+We now have some animations to play around with in unreal! It’s now time to export.</p>
+
+<p>
+  <hy-img root-margin="512px"  src="/assets/img/blog/First-Person-Animations-for-UE4/7.png" alt="Original photo" class="lead" width="1920" height="1200" >
+    <noscript><img re-ignore  src="/assets/img/blog/First-Person-Animations-for-UE4/7.png" alt="Original photo" class="lead" width="1920" height="1200" /></noscript>
+    <span class="loading" slot="loading" hidden>
+      <span class="icon-cog"></span>
+    </span>
+  </hy-img></p>
+
+<h1 id="exporting">Exporting</h1>
+<p>Depending on your needs, you may want to make sure the export maintains the offset you have meticulously set up for your weapon. This next part is not necessary (if you don’t mind fiddling with rotating/moving the weapon in Unreal), but if you want the Unreal setup to match exactly the way it currently is in Maya, don’t skip to Final Export.</p>
+
+<h2 id="setting-up-for-export">Setting Up for Export</h2>
+
+<p>When we export animation using ART, it is processing from 2 files:  Animation rig files and export files (both found in the projects folder from within the plugin). We have to use both of these to make sure our export includes the offset for our weapon (make a backup of these files so we can revert our changes after exporting).</p>
+
+<p>
+  <hy-img root-margin="512px"  src="/assets/img/blog/First-Person-Animations-for-UE4/8.png" alt="Original photo" class="lead" width="1920" height="1200" >
+    <noscript><img re-ignore  src="/assets/img/blog/First-Person-Animations-for-UE4/8.png" alt="Original photo" class="lead" width="1920" height="1200" /></noscript>
+    <span class="loading" slot="loading" hidden>
+      <span class="icon-cog"></span>
+    </span>
+  </hy-img></p>
+
+<p>Back in our scene, create 2 locators and parent them to one another. Assign the parent locator to the wrist control (with animSnap) and its child to the weapon. Copy/export (as a maya binary) only the locators and then open up the mannequin rig file (should be under AnimRigs/mannequin.mb). paste it in this file and, using animSnap, snap the parent locator to the wrist control. Create another locator and snap it to the child of the imported locator hierarchy. Now, export/copy only the created locator. Don’t save, but just in case you did, remember you can replace the file with our backup. Open the mannequin_export.mb file and bring in the single locator you just made. Using the outliner, locate ik_hand (with suffix _r _l depending on which hand you were animating to). Snap this joint to our imported locator. Then, remove unneeded parent constraints (remove ik_hand_r_gun). Remember to not have any keyed frames in this file or it could cause problems with anim exports. We are now done! Delete the locator and save the file!</p>
+
+<p>
+  <hy-img root-margin="512px"  src="/assets/img/blog/First-Person-Animations-for-UE4/9.png" alt="Original photo" class="lead" width="1920" height="1200" >
+    <noscript><img re-ignore  src="/assets/img/blog/First-Person-Animations-for-UE4/9.png" alt="Original photo" class="lead" width="1920" height="1200" /></noscript>
+    <span class="loading" slot="loading" hidden>
+      <span class="icon-cog"></span>
+    </span>
+  </hy-img></p>
+
+<h2 id="final-export">Final Export</h2>
+
+<p>The final export is relatively simple. If not open already, go to ART and select the Animation Interface. Press the export from within the interface and you will see a new dialogue box pop up. Keep the settings as is and export as an FBX. Make sure you select the right start and end keyframes and export the animation!</p>
+
+<p>
+  <hy-img root-margin="512px"  src="/assets/img/blog/First-Person-Animations-for-UE4/10.png" alt="Original photo" class="lead" width="1920" height="1200" >
+    <noscript><img re-ignore  src="/assets/img/blog/First-Person-Animations-for-UE4/10.png" alt="Original photo" class="lead" width="1920" height="1200" /></noscript>
+    <span class="loading" slot="loading" hidden>
+      <span class="icon-cog"></span>
+    </span>
+  </hy-img></p>
+
+<h1 id="porting-to-unreal">Porting to Unreal</h1>
+
+<p>To test our new animations, start a new first person shooter project. Import our FBX files and make sure they are applied to the UE4 skeleton. Locate the current idle animation and left click-&gt;replace with new source.</p>
+
+<p>To attach the weapon to our character, go into the character blueprint’s constructor and add the Attach to Component node:</p>
+
+<p>
+  <hy-img root-margin="512px"  src="/assets/img/blog/First-Person-Animations-for-UE4/11.png" alt="Original photo" class="lead" width="1920" height="1200" >
+    <noscript><img re-ignore  src="/assets/img/blog/First-Person-Animations-for-UE4/11.png" alt="Original photo" class="lead" width="1920" height="1200" /></noscript>
+    <span class="loading" slot="loading" hidden>
+      <span class="icon-cog"></span>
+    </span>
+  </hy-img></p>
+
+<p>For our attack animation, we are going to use animation montages. Create a new input, attack, and output this to play a montage:</p>
+
+<p>
+  <hy-img root-margin="512px"  src="/assets/img/blog/First-Person-Animations-for-UE4/12.png" alt="Original photo" class="lead" width="1920" height="1200" >
+    <noscript><img re-ignore  src="/assets/img/blog/First-Person-Animations-for-UE4/12.png" alt="Original photo" class="lead" width="1920" height="1200" /></noscript>
+    <span class="loading" slot="loading" hidden>
+      <span class="icon-cog"></span>
+    </span>
+  </hy-img></p>
+
+<p>And we’re done! Create some more animations and keep at it. Don’t be scared to go back and refine/reanimate your work. Most of what I have learned came from Gnomon Workshop tutorials, which I highly recommend if you want to expand your knowledge of the Unreal animation pipeline (or learn just about anything from environmental design to 3D printing). I recommend watching Creating First Person Shooter Animations for Games, which is an extended and in-depth tutorial of this article. Bill Buckley, the instructor for the tutorial series, gives many great tips and tricks for working between Maya and Unreal.</p>
+
+<p>And with that, see you guys later and have a great day everybody!</p>
+
+  
+</article>
+
+
+<hr class="dingbat related" />
+
+
+
+
+  
+     
+
+
+  <aside class="about related mt4 mb4" role="complementary">
+    
+    
+
+<div class="author mt4">
+  
+
+  
+    
+
+
+  
+  <hy-img root-margin="512px"  
+    
+    src="https://placehold.it/128x128"
+    class="avatar"
+    alt="Andrew Montoya"
+    srcset="https://placehold.it/128x128 1x,https://placehold.it/256x256 2x"
+    
+  
+    
+  >
+    <noscript><img re-ignore  
+    
+    src="https://placehold.it/128x128"
+    class="avatar"
+    alt="Andrew Montoya"
+    srcset="https://placehold.it/128x128 1x,https://placehold.it/256x256 2x"
+    
+  
+    
+  /></noscript>
+    <span class="loading" slot="loading" hidden>
+      <span class="icon-cog"></span>
+    </span>
+  </hy-img>
+
+  
+
+  
+  
+  <h2  class="page-title hr">
+    About
+  </h2>
+
+  <p>Hi, I’m a programmer and technical artist from Chicago, IL, striving to blend art and math to create interesting projects.
+I studied at College of DuPage and Lewis University with an Associates in Art and Bachelors in Computer Science. Take a look at my current projects,
+or read through my musings of game design.</p>
+
+
+  <div class="sidebar-social">
+    <span class="sr-only">Social:</span>
+<ul>
+  
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://twitter.com/ndrewmontoyaiv" title="Twitter" class="no-mark-external">
+      <span class="icon-twitter"></span>
+      <span class="sr-only">Twitter</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://github.com/andrewmontoyaiv" title="GitHub" class="no-mark-external">
+      <span class="icon-github"></span>
+      <span class="sr-only">GitHub</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://andrewmontoyaiv.com/feed.xml" title="RSS" class="no-mark-external">
+      <span class="icon-rss2"></span>
+      <span class="sr-only">RSS</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://www.youtube.com/channel/Animaticals" title="YouTube" class="no-mark-external">
+      <span class="icon-youtube"></span>
+      <span class="sr-only">YouTube</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://instagram.com/andrewmontoyaiv" title="Instagram" class="no-mark-external">
+      <span class="icon-instagram"></span>
+      <span class="sr-only">Instagram</span>
+    </a>
+  </li>
+
+
+    
+  
+</ul>
+
+  </div>
+</div>
+
+  </aside>
+
+
+  
+
+  
+    
+
+
+
+
+  
+
+  
+    
+
+
+
+
+<aside class="related mb4" role="complementary">
+  <h2 class="hr">Related Posts</h2>
+
+  <ul class="related-posts">
+    
+      
+
+
+<li>
+  <a href="/blog/game-design/Using-Animation-Notifies-in-UE4/" class="h4 flip-title">
+    <span>Using Animation Notifies in UE4</span>
+  </a>
+  <time class="heading faded fine" datetime="2017-12-13T00:00:00-06:00">13 Dec 2017</time>
+</li>
+
+    
+      
+
+
+<li>
+  <a href="/blog/game-design/Adding-Mixamo-Animations-to-Unreal-Rigs/" class="h4 flip-title">
+    <span>Adding Mixamo Animations to Unreal Rigs</span>
+  </a>
+  <time class="heading faded fine" datetime="2017-11-14T00:00:00-06:00">14 Nov 2017</time>
+</li>
+
+    
+  </ul>
+</aside>
+
+
+  
+
+  
+    
+
+
+
+
+<aside class="related mb4" role="complementary">
+  <h2 class="hr">Random Posts</h2>
+
+
+  <ul class="related-posts">
+    
+      
+
+
+<li>
+  <a href="/blog/game-design/Using-Animation-Notifies-in-UE4/" class="h4 flip-title">
+    <span>Using Animation Notifies in UE4</span>
+  </a>
+  <time class="heading faded fine" datetime="2017-12-13T00:00:00-06:00">13 Dec 2017</time>
+</li>
+
+    
+      
+
+
+<li>
+  <a href="/blog/game-design/Adding-Mixamo-Animations-to-Unreal-Rigs/" class="h4 flip-title">
+    <span>Adding Mixamo Animations to Unreal Rigs</span>
+  </a>
+  <time class="heading faded fine" datetime="2017-11-14T00:00:00-06:00">14 Nov 2017</time>
+</li>
+
+    
+  </ul>
+</aside>
+
+
+  
+
+
+  
+
+<aside class="comments related" role="complementary">
+  <h2 class="hr">Comments</h2>
+  <div id="disqus_thread"></div>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</aside>
+
+
+  
+<footer role="contentinfo">
+  <hr/>
+  
+    <p><small class="copyright">©Andrew Montoya 2018. All rights reserved.
+</small></p>
+  
+  
+  
+  <hr class="sr-only"/>
+</footer>
+
+
+</main>
+
+    <hy-drawer
+  class=""
+  align="left"
+  threshold="10"
+  prevent-default
+>
+  <header id="_sidebar" class="sidebar" role="banner">
+    
+    <div class="sidebar-bg sidebar-overlay" style="background-color:rgb(25,55,71);background-image:url(/assets/img/sidebar-bg.jpg)"></div>
+
+    <div class="sidebar-sticky">
+      <div class="sidebar-about">
+        
+          <a class="no-hover" href="/" tabindex="-1">
+            <img src="/assets/icons/icon.png" class="avatar" alt="Andrew Montoya IV" re-ignore />
+          </a>
+        
+        <h2 class="h1"><a href="/">Andrew Montoya IV</a></h2>
+        
+        
+          <p class="">
+            “Programmer &amp; Tech Artist”
+
+          </p>
+        
+      </div>
+
+      <nav class="sidebar-nav heading" role="navigation">
+        <span class="sr-only">Navigation:</span>
+<ul>
+  
+  
+  
+  
+    
+      <li>
+        <a
+          id="_navigation"
+          href="/blog/"
+          class="sidebar-nav-item active"
+          
+          >
+          Blog
+        </a>
+      </li>
+    
+  
+    
+      <li>
+        <a
+          
+          href="/projects/"
+          class="sidebar-nav-item"
+          
+          >
+          Projects
+        </a>
+      </li>
+    
+  
+    
+      <li>
+        <a
+          
+          href="/resume/"
+          class="sidebar-nav-item"
+          
+          >
+          Résumé
+        </a>
+      </li>
+    
+  
+</ul>
+
+      </nav>
+
+      
+
+      <div class="sidebar-social">
+        <span class="sr-only">Social:</span>
+<ul>
+  
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://twitter.com/ndrewmontoyaiv" title="Twitter" class="no-mark-external">
+      <span class="icon-twitter"></span>
+      <span class="sr-only">Twitter</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://github.com/andrewmontoyaiv" title="GitHub" class="no-mark-external">
+      <span class="icon-github"></span>
+      <span class="sr-only">GitHub</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://andrewmontoyaiv.com/feed.xml" title="RSS" class="no-mark-external">
+      <span class="icon-rss2"></span>
+      <span class="sr-only">RSS</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://www.youtube.com/channel/Animaticals" title="YouTube" class="no-mark-external">
+      <span class="icon-youtube"></span>
+      <span class="sr-only">YouTube</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://instagram.com/andrewmontoyaiv" title="Instagram" class="no-mark-external">
+      <span class="icon-instagram"></span>
+      <span class="sr-only">Instagram</span>
+    </a>
+  </li>
+
+
+    
+  
+</ul>
+
+      </div>
+    </div>
+  </header>
+</hy-drawer>
+<hr class="sr-only" hidden />
+
+  
+</hy-push-state>
+
+
+  <!--[if gt IE 9]><!---->
+  <script>window.loadJSDeferred(document.getElementById('_hrefJS').href);</script>
+  
+
+  <!--<![endif]-->
+
+  
+  <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+
+    /**/
+      ga('create', 'UA-84025722-5', 'auto');
+    /**/
+
+    var pushStateEl = document.getElementsByTagName('hy-push-state')[0];
+    var timeoutId;
+    pushStateEl.addEventListener('hy-push-state-load', function() {
+      window.clearTimeout(timeoutId);
+      timeoutId = window.setTimeout(function() {
+        ga('set', 'page', window.location.pathname);
+        ga('send', 'pageview');
+      }, 500);
+    });
+
+    window.loadJSDeferred('https://www.google-analytics.com/analytics.js');
+  </script>
+
+
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      
+        navigator.serviceWorker.getRegistration()
+          .then(r => r.unregister())
+          .catch(() => {});
+      
+    }
+  </script>
+
+
+
+
+
+
+<h2 class="sr-only" hidden>Templates (for web app):</h2>
+
+<template id="_animation-template" hidden>
+  <div class="animation-main fixed-top">
+    <div class="content">
+      <div class="page"></div>
+    </div>
+  </div>
+</template>
+
+<template id="_loading-template" hidden>
+  <div class="loading">
+    <span class="sr-only">Loading…</span>
+    <span class="icon-cog"></span>
+  </div>
+</template>
+
+<template id="_error-template" hidden>
+  <div class="page">
+    <h1 class="page-title">Error</h1>
+    
+    
+    <p class="lead">
+      Sorry, an error occurred while loading <a class="this-link" href=""></a>.
+
+    </p>
+  </div>
+</template>
+
+<template id="_back-template" hidden>
+  <a id="_back" class="back nav-btn no-hover">
+    <span class="sr-only">Back</span>
+    <span class="icon-arrow-left2"></span>
+  </a>
+</template>
+
+<template id="_permalink-template" hidden>
+  <a href="#" class="permalink">
+    <span class="sr-only">Permalink</span>
+    <span class="icon-link"></span>
+  </a>
+</template>
+
+
+
+
+</body>
+</html>
